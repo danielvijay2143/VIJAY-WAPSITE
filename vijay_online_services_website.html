@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIJAY ONLINE SERVICES | விஜய் ஆன்லைன் சர்வீசஸ்</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Arima / Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Arima:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- PapaParse for Google Sheets CSV Parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0F2A4A',
+                            900: '#0A1A30',
+                        },
+                        brand: {
+                            blue: '#1E40AF',
+                            gold: '#F59E0B',
+                            lightGold: '#FEF3C7',
+                            green: '#10B981',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Arima', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', 'Arima', sans-serif;
+            background-color: #F8FAFC;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0A1A30 0%, #1E40AF 60%, #1E3A8A 100%);
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Top Announcement & Contact Bar -->
+    <div class="bg-navy-900 text-white text-xs md:text-sm py-2 px-4 shadow-inner border-b border-navy-800">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-4 text-amber-300 font-medium">
+                <span><i class="fa-solid fa-clock text-amber-400 mr-1.5"></i>காலை 8:30 - இரவு 8:30 (அனைத்து நாட்களும்)</span>
+                <span class="hidden md:inline text-slate-500">|</span>
+                <span class="hidden md:inline text-slate-200"><i class="fa-solid fa-location-dot text-red-400 mr-1.5"></i>ஞாயிறு கிராமம், சென்னை</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="tel:8056202411" class="flex items-center gap-1.5 text-white bg-blue-700 hover:bg-blue-800 font-bold px-3 py-1 rounded-full text-xs shadow-sm transition">
+                    <i class="fa-solid fa-phone text-amber-300"></i>
+                    <span>8056202411</span>
+                </a>
+                <a href="https://wa.me/918056202411" target="_blank" class="flex items-center gap-1.5 text-slate-950 bg-emerald-400 hover:bg-emerald-500 font-bold px-3 py-1 rounded-full text-xs shadow-sm transition">
+                    <i class="fa-brands fa-whatsapp text-lg text-emerald-950"></i>
+                    <span>WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur shadow-md border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Shop Brand & Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 gold-gradient text-slate-950 rounded-2xl flex items-center justify-center font-black text-2xl shadow-lg group-hover:scale-105 transition transform">
+                        V
+                    </div>
+                    <div>
+                        <div class="font-extrabold text-xl md:text-2xl text-navy-900 tracking-tight leading-none">
+                            VIJAY <span class="text-brand-blue">ONLINE SERVICES</span>
+                        </div>
+                        <div class="text-xs font-bold text-amber-600 mt-1">
+                            விஜய் ஆன்லைன் சர்வீசஸ்
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center space-x-6 font-semibold text-slate-700 text-sm">
+                    <a href="#home" class="hover:text-brand-blue transition">முகப்பு</a>
+                    <a href="#services" class="hover:text-brand-blue transition">சேவைகள்</a>
+                    <a href="#sheets-data" class="hover:text-brand-blue transition text-brand-blue">ஆவண பட்டியல் (Live)</a>
+                    <a href="#whyus" class="hover:text-brand-blue transition">ஏன் நாங்கள்?</a>
+                    <a href="#contact" class="hover:text-brand-blue transition">முகவரி</a>
+                </div>
+
+                <!-- Call Button CTA -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <a href="tel:8056202411" class="bg-brand-blue hover:bg-blue-800 text-white px-5 py-2.5 rounded-xl font-bold shadow-md hover:shadow-lg transition flex items-center gap-2">
+                        <i class="fa-solid fa-phone text-amber-300"></i>
+                        <span>8056202411</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" class="p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none" aria-label="Toggle Navigation Menu">
+                        <i class="fa-solid fa-bars text-2xl" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3 shadow-xl">
+            <a href="#home" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">முகப்பு</a>
+            <a href="#services" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">சேவைகள்</a>
+            <a href="#sheets-data" class="mobile-nav-link block px-3 py-2 rounded-lg font-bold text-brand-blue hover:bg-blue-50">ஆவண பட்டியல் (Live Data)</a>
+            <a href="#whyus" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">ஏன் நாங்கள்?</a>
+            <a href="#contact" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">முகவரி</a>
+            <div class="pt-2 flex flex-col gap-2">
+                <a href="tel:8056202411" class="w-full text-center bg-brand-blue text-white font-bold py-2.5 rounded-xl shadow">
+                    <i class="fa-solid fa-phone mr-2"></i>அழைக்க: 8056202411
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient text-white py-12 lg:py-20 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs sm:text-sm font-semibold">
+                        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                        <span>உங்கள் நம்பிக்கைக்குரிய ஆன்லைன் சேவை மையம்</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-tight">
+                        அனைத்து அரசு & ஆன்லைன் சேவைகளும் <span class="text-amber-400">ஒரே இடத்தில்!</span>
+                    </h1>
+
+                    <p class="text-slate-200 text-base sm:text-lg leading-relaxed max-w-2xl">
+                        ஆதார், பான் கார்டு, ஸ்மார்ட் ரேஷன் கார்டு, சான்றிதழ்கள், ஓட்டுநர் உரிமம் மற்றும் ரீசார்ஜ் சேவைகளை பெற எங்களை அழைக்கவும்.
+                    </p>
+
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-2">
+                        <a href="tel:8056202411" class="gold-gradient hover:opacity-95 text-slate-950 font-extrabold px-6 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition flex items-center gap-2 text-base">
+                            <i class="fa-solid fa-phone text-lg"></i>
+                            <span>அழைக்க: 8056202411</span>
+                        </a>
+                        <a href="https://wa.me/918056202411" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold px-6 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition flex items-center gap-2 text-base">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i>
+                            <span>WhatsApp மெசேஜ்</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="glass-card text-slate-900 p-6 sm:p-8 rounded-3xl shadow-2xl border border-white/20">
+                        <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-200">
+                            <div>
+                                <h2 class="text-xl font-bold text-navy-900">தொடர்பு & நேரம்</h2>
+                                <p class="text-xs text-slate-500">Contact & Timing</p>
+                            </div>
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> ஓபன்
+                            </span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-blue-50 text-brand-blue flex items-center justify-center font-bold text-lg shrink-0">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-500 font-medium">போன் / வாட்ஸ்அப்</p>
+                                    <a href="tel:8056202411" class="font-extrabold text-brand-blue hover:underline text-lg">8056202411</a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-lg shrink-0">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-500 font-medium">செயல்படும் நேரம்</p>
+                                    <p class="font-bold text-slate-800">காலை 8:30 - இரவு 8:30 வரை</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-500 font-medium">முகவரி</p>
+                                    <p class="font-bold text-slate-800">காமராஜர் தெரு, ஞாயிறு கிராமம், சென்னை - 600067</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE GOOGLE SHEET DATA SECTION -->
+    <section id="sheets-data" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+            <span class="text-emerald-700 font-bold text-sm tracking-wider uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                <i class="fa-solid fa-arrows-rotate mr-1 animate-spin"></i> Google Sheet நேரடி இணைப்பு
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 mt-3">சேவைகள் & தேவையான ஆவணங்கள்</h2>
+            <p class="text-slate-600 mt-2 text-sm sm:text-base">எங்கள் Google Sheet தகவல்கள் நேரடியாக உங்கள் பார்வைக்காக இங்கே புதுப்பிக்கப்படுகின்றன.</p>
+        </div>
+
+        <!-- Dynamic Loader & Content -->
+        <div id="sheetLoader" class="text-center py-12 bg-white rounded-2xl shadow-sm border border-slate-200">
+            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-brand-blue border-t-transparent mb-3"></div>
+            <p class="text-slate-600 font-semibold text-sm">Google Sheet தகவல்கள் சேகரிக்கப்படுகின்றன...</p>
+        </div>
+
+        <div id="sheetError" class="hidden text-center py-8 bg-red-50 text-red-700 rounded-2xl border border-red-200 p-4">
+            <i class="fa-solid fa-triangle-exclamation text-2xl mb-2"></i>
+            <p class="font-bold">Google Sheet தரவை ஏற்றுவதில் சிறிய சிரமம் உள்ளது.</p>
+            <p class="text-xs mt-1">நேரடி தகவலுக்கு <strong>8056202411</strong> என்ற எண்ணை தொடர்பு கொள்ளவும்.</p>
+        </div>
+
+        <div id="sheetGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+            <!-- Dynamic Google Sheet Cards populated via JS -->
+        </div>
+    </section>
+
+    <!-- Standard Services Overview -->
+    <section id="services" class="py-12 bg-slate-100 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">எங்களின் அனைத்து சேவைகள்</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-xs font-bold text-slate-700">
+                <div class="bg-white p-4 rounded-xl shadow-sm">ஆதார் திருத்தங்கள்</div>
+                <div class="bg-white p-4 rounded-xl shadow-sm">பான் கார்டு</div>
+                <div class="bg-white p-4 rounded-xl shadow-sm">ஸ்மார்ட் ரேஷன் அட்டை</div>
+                <div class="bg-white p-4 rounded-xl shadow-sm">வாக்காளர் அட்டை</div>
+                <div class="bg-white p-4 rounded-xl shadow-sm">சான்றிதழ்கள் (e-Sevai)</div>
+                <div class="bg-white p-4 rounded-xl shadow-sm">வாகன காப்பீடு (Insurance)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="whyus" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <h2 class="text-3xl font-extrabold text-navy-900">ஏன் எங்கள் சேவையை தேர்ந்தெடுக்க வேண்டும்?</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <i class="fa-solid fa-bolt text-3xl text-amber-500 mb-3"></i>
+                <h3 class="font-bold text-lg text-slate-900 mb-1">வேகமான சேவை</h3>
+                <p class="text-xs text-slate-600">குறைந்த நேரத்தில் துல்லியமான ஆன்லைன் விண்ணப்பங்கள்.</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <i class="fa-solid fa-shield-halved text-3xl text-brand-blue mb-3"></i>
+                <h3 class="font-bold text-lg text-slate-900 mb-1">நம்பகத்தன்மை</h3>
+                <p class="text-xs text-slate-600">உங்களின் ஆவணங்கள் மற்றும் தகவல்கள் பாதுகாப்பானது.</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <i class="fa-solid fa-headset text-3xl text-emerald-600 mb-3"></i>
+                <h3 class="font-bold text-lg text-slate-900 mb-1">நேரடி உதவி</h3>
+                <p class="text-xs text-slate-600">தமிழில் எளிமையான மற்றும் சரியான வழிகாட்டுதல்.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Address & Location -->
+    <section id="contact" class="bg-navy-900 text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center space-y-6">
+            <h2 class="text-3xl font-extrabold text-amber-400">VIJAY ONLINE SERVICES</h2>
+            <p class="text-lg text-slate-200">காமராஜர் தெரு, ஞாயிறு கிராமம், சென்னை - 600067</p>
+            <div class="flex flex-wrap justify-center gap-4 pt-4">
+                <a href="tel:8056202411" class="gold-gradient text-slate-950 font-bold px-6 py-3 rounded-xl shadow">
+                    <i class="fa-solid fa-phone mr-2"></i>8056202411 அழைக்க
+                </a>
+                <a href="https://wa.me/918056202411" target="_blank" class="bg-emerald-500 text-slate-950 font-bold px-6 py-3 rounded-xl shadow">
+                    <i class="fa-brands fa-whatsapp mr-2"></i>WhatsApp செய்ய
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-6 text-center text-xs">
+        © 2026 VIJAY ONLINE SERVICES. Phone: 8056202411 | ஞாயிறு கிராமம், சென்னை.
+    </footer>
+
+    <!-- Fixed Floating Mobile Actions -->
+    <div class="fixed bottom-3 left-3 right-3 z-50 md:hidden flex gap-2">
+        <a href="tel:8056202411" class="flex-1 bg-brand-blue text-white font-bold py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 text-xs">
+            <i class="fa-solid fa-phone"></i> Call 8056202411
+        </a>
+        <a href="https://wa.me/918056202411" target="_blank" class="flex-1 bg-emerald-500 text-slate-950 font-bold py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 text-xs">
+            <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
+        </a>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Fetch Google Sheet CSV Link provided by User
+        const googleSheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTJIIoaOf1Dzbrenip2CUhUFTyBc6rp2mjcMXHqMtZa2QiuLMD7rXjoFc4Xx2cmzb3V8YaalnjWcD3u/pub?output=csv';
+
+        function loadGoogleSheetData() {
+            Papa.parse(googleSheetCsvUrl, {
+                download: true,
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    const data = results.data;
+                    const loader = document.getElementById('sheetLoader');
+                    const grid = document.getElementById('sheetGrid');
+                    const error = document.getElementById('sheetError');
+
+                    loader.classList.add('hidden');
+
+                    if (!data || data.length === 0) {
+                        error.classList.remove('hidden');
+                        return;
+                    }
+
+                    grid.innerHTML = '';
+                    grid.classList.remove('hidden');
+
+                    data.forEach((row, index) => {
+                        // Extract keys dynamically regardless of column naming in sheet
+                        const keys = Object.keys(row);
+                        const serviceName = row[keys[0]] || `சேவை ${index + 1}`;
+                        const reqDocs = row[keys[1]] || 'விவரங்களுக்கு கடைக்கு தொடர்பு கொள்ளவும்';
+                        const extraNotes = keys[2] ? row[keys[2]] : '';
+
+                        const card = document.createElement('div');
+                        card.className = "bg-white p-6 rounded-2xl border border-slate-200 shadow-md hover:shadow-lg transition flex flex-col justify-between";
+                        card.innerHTML = `
+                            <div>
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="w-8 h-8 rounded-lg bg-blue-100 text-brand-blue flex items-center justify-center font-bold text-sm">
+                                        <i class="fa-solid fa-file-check"></i>
+                                    </span>
+                                    <h3 class="font-extrabold text-lg text-slate-900">${serviceName}</h3>
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100 mt-2">
+                                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">தேவையான ஆவணங்கள்:</p>
+                                    <p class="text-sm font-semibold text-slate-800 leading-relaxed">${reqDocs}</p>
+                                </div>
+                                ${extraNotes ? `<p class="text-xs text-emerald-700 mt-2 font-medium"><i class="fa-solid fa-circle-info mr-1"></i>${extraNotes}</p>` : ''}
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                                <a href="https://wa.me/918056202411?text=${encodeURIComponent('வணக்கம், ' + serviceName + ' சேவை பற்றி கேட்க விரும்புகிறேன்.')}" target="_blank" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+                                    <i class="fa-brands fa-whatsapp text-sm"></i> தகவல் கேட்க
+                                </a>
+                                <a href="tel:8056202411" class="text-xs font-bold text-brand-blue hover:text-blue-800 flex items-center gap-1">
+                                    <i class="fa-solid fa-phone"></i> 8056202411
+                                </a>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                },
+                error: function(err) {
+                    document.getElementById('sheetLoader').classList.add('hidden');
+                    document.getElementById('sheetError').classList.remove('hidden');
+                }
+            });
+        }
+
+        // Initialize Sheet Loader on page load
+        window.addEventListener('DOMContentLoaded', loadGoogleSheetData);
+    </script>
+</body>
+</html>
