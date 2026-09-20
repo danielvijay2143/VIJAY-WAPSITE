@@ -340,17 +340,17 @@
         function loadGoogleSheetData() {
             Papa.parse(googleSheetCsvUrl, {
                 download: true,
-                header: true,
+                header: false,
                 skipEmptyLines: true,
                 complete: function(results) {
-                    const data = results.data;
+                    const rows = results.data;
                     const loader = document.getElementById('sheetLoader');
                     const grid = document.getElementById('sheetGrid');
                     const error = document.getElementById('sheetError');
 
                     loader.classList.add('hidden');
 
-                    if (!data || data.length === 0) {
+                    if (!rows || rows.length <= 1) {
                         error.classList.remove('hidden');
                         return;
                     }
@@ -358,12 +358,30 @@
                     grid.innerHTML = '';
                     grid.classList.remove('hidden');
 
-                    data.forEach((row, index) => {
-                        // Extract keys dynamically regardless of column naming in sheet
-                        const keys = Object.keys(row);
-                        const serviceName = row[keys[0]] || `சேவை ${index + 1}`;
-                        const reqDocs = row[keys[1]] || 'விவரங்களுக்கு கடைக்கு தொடர்பு கொள்ளவும்';
-                        const extraNotes = keys[2] ? row[keys[2]] : '';
+                    // Header-ஐ விட்டுவிட்டு A2 (வரிசை 1) முதல் தரவை எடுக்கிறது
+                    for (let i = 1; i < rows.length; i++) {
+                        const row = rows[i];
+                        const serviceName = row[0] ? row[0].trim() : `சேவை ${i}`;
+                        
+                        // B2, C2, D2... போன்ற அனைத்து நெடுவரிசைகளிலிருந்தும் தேவையான ஆவணங்களை சேகரிக்கிறது
+                        let reqDocsList = [];
+                        for (let j = 1; j < row.length; j++) {
+                            if (row[j] && row[j].trim() !== '') {
+                                reqDocsList.push(row[j].trim());
+                            }
+                        }
+
+                        // 1, 2, 3 என எண் பட்டியலாக (Numbered HTML List) மாற்றுகிறது
+                        let docsHtml = '';
+                        if (reqDocsList.length > 0) {
+                            docsHtml = '<ol class="list-decimal list-inside space-y-1 text-sm font-semibold text-slate-800 leading-relaxed">';
+                            reqDocsList.forEach(doc => {
+                                docsHtml += `<li>${doc}</li>`;
+                            });
+                            docsHtml += '</ol>';
+                        } else {
+                            docsHtml = '<p class="text-sm font-semibold text-slate-800">விவரங்களுக்கு கடைக்கு தொடர்பு கொள்ளவும்</p>';
+                        }
 
                         const card = document.createElement('div');
                         card.className = "bg-white p-6 rounded-2xl border border-slate-200 shadow-md hover:shadow-lg transition flex flex-col justify-between";
@@ -376,10 +394,9 @@
                                     <h3 class="font-extrabold text-lg text-slate-900">${serviceName}</h3>
                                 </div>
                                 <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100 mt-2">
-                                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">தேவையான ஆவணங்கள்:</p>
-                                    <p class="text-sm font-semibold text-slate-800 leading-relaxed">${reqDocs}</p>
+                                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">தேவையான ஆவணங்கள்:</p>
+                                    ${docsHtml}
                                 </div>
-                                ${extraNotes ? `<p class="text-xs text-emerald-700 mt-2 font-medium"><i class="fa-solid fa-circle-info mr-1"></i>${extraNotes}</p>` : ''}
                             </div>
                             <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
                                 <a href="https://wa.me/918056202411?text=${encodeURIComponent('வணக்கம், ' + serviceName + ' சேவை பற்றி கேட்க விரும்புகிறேன்.')}" target="_blank" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
@@ -391,7 +408,7 @@
                             </div>
                         `;
                         grid.appendChild(card);
-                    });
+                    }
                 },
                 error: function(err) {
                     document.getElementById('sheetLoader').classList.add('hidden');
