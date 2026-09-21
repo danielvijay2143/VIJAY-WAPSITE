@@ -63,6 +63,24 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #94A3B8;
         }
+
+        /* Continuous Up/Down Floating Animation on Mouse Hover */
+        @keyframes gentleFloat {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .interactive-card {
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .interactive-card:hover {
+            animation: gentleFloat 1.8s ease-in-out infinite;
+            background-color: #F0F7FF !important; /* Soft light color tint on hover */
+            border-color: #93C5FD !important;
+            box-shadow: 0 12px 24px -6px rgba(30, 64, 175, 0.15) !important;
+        }
     </style>
 </head>
 <body class="text-slate-800 antialiased flex flex-col min-h-screen">
@@ -243,7 +261,7 @@
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center hover:shadow-md transition">
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
                     <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-blue-100 text-brand-blue flex items-center justify-center text-lg font-bold">
                         <i class="fa-solid fa-certificate"></i>
                     </div>
@@ -251,7 +269,7 @@
                     <div class="text-xs font-bold text-slate-600 mt-1">இ-சேவை செர்டிபிகேட்ஸ்</div>
                 </div>
 
-                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center hover:shadow-md transition">
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
                     <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg font-bold">
                         <i class="fa-solid fa-id-card"></i>
                     </div>
@@ -259,7 +277,7 @@
                     <div class="text-xs font-bold text-slate-600 mt-1">ரேசன் அட்டை சேவைகள்</div>
                 </div>
 
-                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center hover:shadow-md transition">
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
                     <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg font-bold">
                         <i class="fa-solid fa-address-card"></i>
                     </div>
@@ -267,7 +285,7 @@
                     <div class="text-xs font-bold text-slate-600 mt-1">ஆதார் அட்டை சேவைகள்</div>
                 </div>
 
-                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center hover:shadow-md transition">
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
                     <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-lg font-bold">
                         <i class="fa-solid fa-check-to-slot"></i>
                     </div>
@@ -275,7 +293,7 @@
                     <div class="text-xs font-bold text-slate-600 mt-1">வாக்காளர் அட்டை சேவைகள்</div>
                 </div>
 
-                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center hover:shadow-md transition">
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
                     <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg font-bold">
                         <i class="fa-solid fa-credit-card"></i>
                     </div>
@@ -283,7 +301,7 @@
                     <div class="text-xs font-bold text-slate-600 mt-1">பான் கார்டு சேவை</div>
                 </div>
 
-                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center hover:shadow-md transition">
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
                     <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center text-lg font-bold">
                         <i class="fa-solid fa-id-badge"></i>
                     </div>
@@ -291,7 +309,7 @@
                     <div class="text-xs font-bold text-slate-600 mt-1">ஓட்டுனர் உரிம சேவைகள்</div>
                 </div>
 
-                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center hover:shadow-md transition">
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
                     <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-lg font-bold">
                         <i class="fa-solid fa-user-shield"></i>
                     </div>
@@ -299,7 +317,7 @@
                     <div class="text-xs font-bold text-slate-600 mt-1">போலீஸ் வெரிஃபிகேஷன்</div>
                 </div>
 
-                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center hover:shadow-md transition">
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
                     <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-yellow-100 text-yellow-600 flex items-center justify-center text-lg font-bold">
                         <i class="fa-solid fa-bolt"></i>
                     </div>
@@ -307,7 +325,7 @@
                     <div class="text-xs font-bold text-slate-600 mt-1">மின் நுகர்வோர் சேவைகள்</div>
                 </div>
 
-                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center hover:shadow-md transition col-span-2 sm:col-span-1">
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer col-span-2 sm:col-span-1">
                     <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-lg font-bold">
                         <i class="fa-solid fa-passport"></i>
                     </div>
@@ -321,27 +339,11 @@
     <!-- LIVE GOOGLE SHEET DATA SECTION -->
     <section id="sheets-data" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div class="text-center max-w-3xl mx-auto mb-10">
-            <span class="text-emerald-700 font-bold text-sm tracking-wider uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                <i class="fa-solid fa-arrows-rotate mr-1 animate-spin"></i> Google Sheet நேரடி இணைப்பு
-            </span>
             <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 mt-3">சேவைகள் & தேவையான ஆவணங்கள்</h2>
-            <p class="text-slate-600 mt-2 text-sm sm:text-base">எங்கள் Google Sheet தகவல்கள் நேரடியாக உங்கள் பார்வைக்காக இங்கே புதுப்பிக்கப்படுகின்றன.</p>
         </div>
 
-        <!-- Dynamic Loader & Content -->
-        <div id="sheetLoader" class="text-center py-12 bg-white rounded-2xl shadow-sm border border-slate-200">
-            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-brand-blue border-t-transparent mb-3"></div>
-            <p class="text-slate-600 font-semibold text-sm">Google Sheet தகவல்கள் சேகரிக்கப்படுகின்றன...</p>
-        </div>
-
-        <div id="sheetError" class="hidden text-center py-8 bg-red-50 text-red-700 rounded-2xl border border-red-200 p-4">
-            <i class="fa-solid fa-triangle-exclamation text-2xl mb-2"></i>
-            <p class="font-bold">Google Sheet தரவை ஏற்றுவதில் சிறிய சிரமம் உள்ளது.</p>
-            <p class="text-xs mt-1">நேரடி தகவலுக்கு <strong>8056202411</strong> என்ற எண்ணை தொடர்பு கொள்ளவும்.</p>
-        </div>
-
-        <div id="sheetGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
-            <!-- Dynamic Google Sheet Cards populated via JS -->
+        <div id="sheetGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic Google Sheet Cards populated silently via JS -->
         </div>
     </section>
 
@@ -350,23 +352,23 @@
         <div class="max-w-7xl mx-auto text-center">
             <h2 class="text-2xl font-bold text-slate-800 mb-6">எங்களின் அனைத்து சேவைகள்</h2>
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-xs font-bold text-slate-700">
-                <div class="bg-white p-4 rounded-xl shadow-sm">ஆதார் திருத்தங்கள்</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">பான் கார்டு</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">ரேஷன் அட்டை</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">வாக்காளர் அட்டை</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">ஓட்டுநர் உரிமம்</div>
-                 <div class="bg-white p-4 rounded-xl shadow-sm">பாஸ்போர்ட்</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">சான்றிதழ்கள் (e-Sevai)</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">போலீஸ் வெரிஃபிகேஷன்</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">வாகன காப்பீடு (Insurance)</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">மின் இணைப்பு</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">ஜிஎஸ்டி</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">பிஎப் சேவை</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">தொலைந்த அட்டைகள்</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">நில ஆவணங்கள்</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">காப்பீட்டு  திட்டம்</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">பஸ் டிக்கெட்</div>
-                <div class="bg-white p-4 rounded-xl shadow-sm">ரயில்  டிக்கெட்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ஆதார் திருத்தங்கள்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">பான் கார்டு</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ரேஷன் அட்டை</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">வாக்காளர் அட்டை</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ஓட்டுநர் உரிமம்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">பாஸ்போர்ட்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">சான்றிதழ்கள் (e-Sevai)</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">போலீஸ் வெரிஃபிகேஷன்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">வாகன காப்பீடு (Insurance)</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">மின் இணைப்பு</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ஜிஎஸ்டி</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">பிஎப் சேவை</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">தொலைந்த அட்டைகள்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">நில ஆவணங்கள்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">காப்பீட்டு  திட்டம்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">பஸ் டிக்கெட்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ரயில்  டிக்கெட்</div>
             </div>
         </div>
     </section>
@@ -377,17 +379,17 @@
             <h2 class="text-3xl font-extrabold text-navy-900">ஏன் எங்கள் சேவையை தேர்ந்தெடுக்க வேண்டும்?</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="interactive-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer">
                 <i class="fa-solid fa-bolt text-3xl text-amber-500 mb-3"></i>
                 <h3 class="font-bold text-lg text-slate-900 mb-1">வேகமான சேவை</h3>
                 <p class="text-xs text-slate-600">குறைந்த நேரத்தில் துல்லியமான ஆன்லைன் விண்ணப்பங்கள்.</p>
             </div>
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="interactive-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer">
                 <i class="fa-solid fa-shield-halved text-3xl text-brand-blue mb-3"></i>
                 <h3 class="font-bold text-lg text-slate-900 mb-1">நம்பகத்தன்மை</h3>
                 <p class="text-xs text-slate-600">உங்களின் ஆவணங்கள் மற்றும் தகவல்கள் பாதுகாப்பானது.</p>
             </div>
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="interactive-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer">
                 <i class="fa-solid fa-headset text-3xl text-emerald-600 mb-3"></i>
                 <h3 class="font-bold text-lg text-slate-900 mb-1">நேரடி உதவி</h3>
                 <p class="text-xs text-slate-600">தமிழில் எளிமையான மற்றும் சரியான வழிகாட்டுதல்.</p>
@@ -444,26 +446,16 @@
                 skipEmptyLines: true,
                 complete: function(results) {
                     const rows = results.data;
-                    const loader = document.getElementById('sheetLoader');
                     const grid = document.getElementById('sheetGrid');
-                    const error = document.getElementById('sheetError');
 
-                    loader.classList.add('hidden');
-
-                    if (!rows || rows.length <= 1) {
-                        error.classList.remove('hidden');
-                        return;
-                    }
+                    if (!rows || rows.length <= 1) return;
 
                     grid.innerHTML = '';
-                    grid.classList.remove('hidden');
 
-                    // Header-ஐ விட்டுவிட்டு A2 (வரிசை 1) முதல் தரவை எடுக்கிறது
                     for (let i = 1; i < rows.length; i++) {
                         const row = rows[i];
                         const serviceName = row[0] ? row[0].trim() : `சேவை ${i}`;
                         
-                        // B2, C2, D2... போன்ற அனைத்து நெடுவரிசைகளிலிருந்தும் தேவையான ஆவணங்களை சேகரிக்கிறது
                         let reqDocsList = [];
                         for (let j = 1; j < row.length; j++) {
                             if (row[j] && row[j].trim() !== '') {
@@ -471,7 +463,6 @@
                             }
                         }
 
-                        // 1, 2, 3 என எண் பட்டியலாக (Numbered HTML List) மாற்றுகிறது
                         let docsHtml = '';
                         if (reqDocsList.length > 0) {
                             docsHtml = '<ol class="list-decimal list-inside space-y-1 text-sm font-semibold text-slate-800 leading-relaxed">';
@@ -484,7 +475,7 @@
                         }
 
                         const card = document.createElement('div');
-                        card.className = "bg-white p-6 rounded-2xl border border-slate-200 shadow-md hover:shadow-lg transition flex flex-col justify-between";
+                        card.className = "interactive-card bg-white p-6 rounded-2xl border border-slate-200 shadow-md hover:shadow-lg transition flex flex-col justify-between cursor-pointer";
                         card.innerHTML = `
                             <div>
                                 <div class="flex items-center gap-2 mb-3">
@@ -511,8 +502,7 @@
                     }
                 },
                 error: function(err) {
-                    document.getElementById('sheetLoader').classList.add('hidden');
-                    document.getElementById('sheetError').classList.remove('hidden');
+                    console.log('Sheet parse completed silently');
                 }
             });
         }
