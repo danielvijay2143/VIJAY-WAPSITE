@@ -128,8 +128,8 @@
                 <!-- Desktop Nav Links -->
                 <div class="hidden md:flex items-center space-x-6 font-semibold text-slate-700 text-sm">
                     <a href="#home" class="hover:text-brand-blue transition">முகப்பு</a>
-                    <a href="#stats" class="hover:text-brand-blue transition">எங்கள் சாதனை</a>
                     <a href="#services" class="hover:text-brand-blue transition">சேவைகள்</a>
+                    <a href="#stats" class="hover:text-brand-blue transition">எங்கள் சாதனை</a>
                     <a href="#sheets-data" class="hover:text-brand-blue transition text-brand-blue">ஆவண பட்டியல் (Live)</a>
                     <a href="#whyus" class="hover:text-brand-blue transition">ஏன் நாங்கள்?</a>
                     <a href="#contact" class="hover:text-brand-blue transition">முகவரி</a>
@@ -155,8 +155,8 @@
         <!-- Mobile Menu Dropdown -->
         <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3 shadow-xl">
             <a href="#home" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">முகப்பு</a>
-            <a href="#stats" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">எங்கள் சாதனை</a>
             <a href="#services" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">சேவைகள்</a>
+            <a href="#stats" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">எங்கள் சாதனை</a>
             <a href="#sheets-data" class="mobile-nav-link block px-3 py-2 rounded-lg font-bold text-brand-blue hover:bg-blue-50">ஆவண பட்டியல் (Live Data)</a>
             <a href="#whyus" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">ஏன் நாங்கள்?</a>
             <a href="#contact" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">முகவரி</a>
@@ -249,7 +249,33 @@
         </div>
     </section>
 
-    <!-- Statistics Section -->
+    <!-- 1ST POSITION: Standard Services Overview -->
+    <section id="services" class="py-12 bg-slate-100 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">எங்களின் அனைத்து சேவைகள்</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-xs font-bold text-slate-700">
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ஆதார் திருத்தங்கள்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">பான் கார்டு</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ரேஷன் அட்டை</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">வாக்காளர் அட்டை</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ஓட்டுநர் உரிமம்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">பாஸ்போர்ட்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">சான்றிதழ்கள் (e-Sevai)</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">போலீஸ் வெரிஃபிகேஷன்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">வாகன காப்பீடு (Insurance)</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">மின் இணைப்பு</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ஜிஎஸ்டி</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">பிஎப் சேவை</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">தொலைந்த அட்டைகள்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">நில ஆவணங்கள்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">காப்பீட்டு  திட்டம்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">பஸ் டிக்கெட்</div>
+                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ரயில்  டிக்கெட்</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2ND POSITION: Statistics Section -->
     <section id="stats" class="py-12 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-8">
@@ -336,7 +362,7 @@
         </div>
     </section>
 
-    <!-- LIVE GOOGLE SHEET DATA SECTION -->
+    <!-- 3RD POSITION: LIVE GOOGLE SHEET DATA SECTION -->
     <section id="sheets-data" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div class="text-center max-w-3xl mx-auto mb-10">
             <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 mt-3">சேவைகள் & தேவையான ஆவணங்கள்</h2>
@@ -344,32 +370,6 @@
 
         <div id="sheetGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Dynamic Google Sheet Cards populated silently via JS -->
-        </div>
-    </section>
-
-    <!-- Standard Services Overview -->
-    <section id="services" class="py-12 bg-slate-100 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-2xl font-bold text-slate-800 mb-6">எங்களின் அனைத்து சேவைகள்</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-xs font-bold text-slate-700">
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ஆதார் திருத்தங்கள்</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">பான் கார்டு</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ரேஷன் அட்டை</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">வாக்காளர் அட்டை</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ஓட்டுநர் உரிமம்</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">பாஸ்போர்ட்</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">சான்றிதழ்கள் (e-Sevai)</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">போலீஸ் வெரிஃபிகேஷன்</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">வாகன காப்பீடு (Insurance)</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">மின் இணைப்பு</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ஜிஎஸ்டி</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">பிஎப் சேவை</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">தொலைந்த அட்டைகள்</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">நில ஆவணங்கள்</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">காப்பீட்டு  திட்டம்</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">பஸ் டிக்கெட்</div>
-                <div class="interactive-card bg-white p-4 rounded-xl shadow-sm cursor-pointer">ரயில்  டிக்கெட்</div>
-            </div>
         </div>
     </section>
 
