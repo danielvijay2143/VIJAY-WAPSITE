@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic UPI Payment Gateway & Admin Panel</title>
+    <!-- QRCode.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        :root {
+            /* Restored Dark Navy/Slate Background Gradient */
+            --bg-gradient: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+            --header-gradient: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
+            --card-bg: rgba(255, 255, 255, 0.98);
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --accent-green: #10B981;
+            --accent-purple: #8B5CF6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .container {
+            background: var(--card-bg);
+            border-radius: 28px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45), 0 0 30px rgba(79, 70, 229, 0.15);
+            width: 100%;
+            max-width: 440px;
+            overflow: hidden;
+            text-align: center;
+            animation: fadeIn 0.4s ease-out;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .header {
+            background: var(--header-gradient);
+            color: white;
+            padding: 38px 20px 28px;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+        }
+
+        .admin-toggle-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .admin-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.45);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+        }
+
+        .header h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+            word-wrap: break-word;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 0.88rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-top: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .content {
+            padding: 28px 24px;
+        }
+
+        .amount-box {
+            background: linear-gradient(135deg, #F8FAFC 0%, #EEF2FF 100%);
+            border: 1px solid #E2E8F0;
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 22px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02), 0 4px 12px rgba(79, 70, 229, 0.08);
+        }
+
+        .amount-box label {
+            display: block;
+            font-size: 0.75rem;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        .amount-box .value {
+            font-size: 2.4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .service-note-text {
+            font-size: 0.88rem;
+            color: #475569;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        .qr-wrapper {
+            background: #ffffff;
+            border: 2px dashed #CBD5E1;
+            border-radius: 20px;
+            padding: 20px;
+            display: inline-block;
+            margin-bottom: 22px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .qr-wrapper:hover {
+            transform: scale(1.02);
+            border-color: #8B5CF6;
+        }
+
+        #qrcode {
+            display: flex;
+            justify-content: center;
+        }
+
+        #qrcode img {
+            border-radius: 12px;
+        }
+
+        .upi-apps {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .upi-chip {
+            background: linear-gradient(135deg, #F1F5F9, #E2E8F0);
+            border: 1px solid #CBD5E1;
+            border-radius: 10px;
+            padding: 7px 12px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #334155;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s;
+        }
+
+        .upi-chip:hover {
+            background: #FFFFFF;
+            border-color: #94A3B8;
+            transform: translateY(-1px);
+        }
+
+        .btn-pay {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.3px;
+        }
+
+        .btn-pay:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(16, 185, 129, 0.6);
+            background: linear-gradient(135deg, #34D399 0%, #059669 100%);
+        }
+
+        .confirm-section {
+            margin-top: 18px;
+            border-top: 1px dashed #CBD5E1;
+            padding-top: 16px;
+        }
+
+        .confirm-section p {
+            font-size: 0.82rem;
+            color: #475569;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .btn-confirm {
+            width: 100%;
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.35);
+            transition: all 0.2s ease;
+        }
+
+        .btn-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+        }
+
+        .footer {
+            padding: 16px 20px 22px;
+            font-size: 0.78rem;
+            color: #64748B;
+            border-top: 1px solid #F1F5F9;
+            background: #F8FAFC;
+            font-weight: 500;
+        }
+
+        .footer span {
+            color: #10B981;
+            font-weight: 700;
+        }
+
+        /* ADMIN / MODAL STYLES */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 30px rgba(126, 34, 206, 0.3);
+            text-align: left;
+            animation: popIn 0.3s ease-out;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+            color: var(--text-main);
+            font-weight: 800;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #EF4444;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #CBD5E1;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: #8B5CF6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.98rem;
+            cursor: pointer;
+            margin-top: 12px;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+            transition: all 0.2s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+        }
+
+        .error-msg {
+            color: #EF4444;
+            font-size: 0.82rem;
+            margin-top: 8px;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* Success Receipt Card */
+        .receipt-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 18px;
+            padding: 20px;
+            text-align: left;
+            font-size: 0.88rem;
+            line-height: 2;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #F1F5F9;
+        }
+
+        .receipt-row:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="gatewayContainer">
+    <div class="header">
+        <button class="admin-toggle-btn" onclick="openAdminModal()">⚙️ Admin Login</button>
+        <h2 id="merchant-title">Melvin Sai Infotech</h2>
+        <p>Scan with any UPI App to pay</p>
+        <span class="badge">0% Commission Gateway</span>
+    </div>
+
+    <div class="content">
+        <div class="amount-box">
+            <label>Total Amount Payable</label>
+            <div class="value" id="amount-display">₹100.00</div>
+            <div class="service-note-text" id="service-display">Service: Order Payment</div>
+        </div>
+
+        <div class="qr-wrapper">
+            <div id="qrcode"></div>
+        </div>
+
+        <div class="upi-apps">
+            <div class="upi-chip">GPay</div>
+            <div class="upi-chip">PhonePe</div>
+            <div class="upi-chip">Paytm</div>
+            <div class="upi-chip">BHIM</div>
+        </div>
+
+        <a id="upi-link" class="btn-pay" href="#">Open UPI App to Pay</a>
+
+        <div class="confirm-section">
+            <p>Finished payment in your UPI app?</p>
+            <button class="btn-confirm" onclick="confirmPaymentProcess()">
+                ✅ Confirm Payment / Done
+            </button>
+        </div>
+    </div>
+
+    <div class="footer">
+        🔒 <span>Instant Direct Transfer</span> • Secured by NPCI UPI
+    </div>
+</div>
+
+<!-- ADMIN / LOGIN MODAL -->
+<div class="modal-overlay" id="adminModal">
+    <div class="modal">
+        <div id="loginView">
+            <div class="modal-header">
+                <h3>Admin Login</h3>
+                <button class="close-btn" onclick="closeAdminModal()">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="adminUser" placeholder="Enter Username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="adminPass" placeholder="Enter Password">
+            </div>
+            <div class="error-msg" id="loginError">Invalid Username or Password!</div>
+            <button class="btn-submit" onclick="handleLogin()">Login</button>
+        </div>
+
+        <div id="dashboardView" style="display: none;">
+            <div class="modal-header">
+                <h3>Payment Settings</h3>
+                <button class="close-btn" onclick="closeAdminModal()">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Shop / Business Name</label>
+                <input type="text" id="inputShopName" value="Melvin Sai Infotech">
+            </div>
+            <div class="form-group">
+                <label>UPI VPA ID</label>
+                <input type="text" id="inputVpa" value="yourbusiness@upi">
+            </div>
+            <div class="form-group">
+                <label>Amount (₹)</label>
+                <input type="number" id="inputAmount" value="100.00" step="0.01">
+            </div>
+            <div class="form-group">
+                <label>Service / Note</label>
+                <input type="text" id="inputNote" value="Government & Financial Services">
+            </div>
+            <button class="btn-submit" onclick="updatePaymentDetails()">Update Gateway & QR Code</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initial Default Configuration
+    let paymentConfig = {
+        vpa: "yourbusiness@upi",                  // Set your default VPA here
+        name: "Melvin Sai Infotech",               
+        amount: "100.00",                         
+        note: "Order Payment",  
+        txnRef: "TXN" + Date.now()
+    };
+
+    let qrCodeInstance = null;
+
+    // Check URL parameters for dynamic auto-fetching from website links
+    function fetchUrlParameters() {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        if (urlParams.has('amount')) {
+            paymentConfig.amount = urlParams.get('amount');
+        }
+        if (urlParams.has('service')) {
+            paymentConfig.note = urlParams.get('service');
+        }
+        if (urlParams.has('orderId')) {
+            paymentConfig.txnRef = urlParams.get('orderId');
+        }
+    }
+
+    // Render Page & Dynamic QR Code
+    function renderGateway() {
+        document.getElementById("merchant-title").innerText = paymentConfig.name;
+        document.getElementById("amount-display").innerText = "₹" + parseFloat(paymentConfig.amount).toFixed(2);
+        document.getElementById("service-display").innerText = "Service: " + paymentConfig.note;
+
+        // Build standard NPCI UPI URI
+        const upiUri = `upi://pay?pa=${encodeURIComponent(paymentConfig.vpa)}&pn=${encodeURIComponent(paymentConfig.name)}&tr=${paymentConfig.txnRef}&am=${paymentConfig.amount}&cu=INR&tn=${encodeURIComponent(paymentConfig.note)}`;
+
+        const qrContainer = document.getElementById("qrcode");
+        qrContainer.innerHTML = "";
+
+        qrCodeInstance = new QRCode(qrContainer, {
+            text: upiUri,
+            width: 180,
+            height: 180,
+            colorDark: "#7C3AED",
+            colorLight: "#FFFFFF",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        document.getElementById("upi-link").href = upiUri;
+    }
+
+    // Payment Confirmation Handler
+    function confirmPaymentProcess() {
+        const customerName = prompt("Please enter your name (minimum 2 characters):");
+        
+        if (customerName && customerName.trim().length >= 2) {
+            const container = document.getElementById("gatewayContainer");
+            
+            container.innerHTML = `
+                <div style="background: linear-gradient(135deg, #10B981, #059669); padding: 35px 20px 25px; color: white;">
+                    <div style="font-size: 3.5rem; margin-bottom: 5px; animation: popIn 0.4s ease;">🎉</div>
+                    <h2 style="font-size: 1.8rem; font-weight: 800;">Payment Successful!</h2>
+                    <p style="font-size: 0.9rem; opacity: 0.9;">Transaction confirmed</p>
+                </div>
+                
+                <div class="content">
+                    <p style="color: #475569; font-weight: 600; font-size: 0.95rem;">
+                        Thank you for your payment to <br><b style="color: #0F172A; font-size: 1.1rem;">${paymentConfig.name}</b>
+                    </p>
+
+                    <div class="receipt-card">
+                        <div class="receipt-row">
+                            <span style="color: #64748B;">Customer Name:</span>
+                            <b style="color: #4F46E5;">${customerName.trim()}</b>
+                        </div>
+                        <div class="receipt-row">
+                            <span style="color: #64748B;">Service:</span>
+                            <b style="color: #0F172A;">${paymentConfig.note}</b>
+                        </div>
+                        <div class="receipt-row">
+                            <span style="color: #64748B;">Amount Paid:</span>
+                            <b style="color: #10B981; font-size: 1.1rem;">₹${parseFloat(paymentConfig.amount).toFixed(2)}</b>
+                        </div>
+                        <div class="receipt-row">
+                            <span style="color: #64748B;">Order Ref ID:</span>
+                            <b style="color: #0F172A;">${paymentConfig.txnRef}</b>
+                        </div>
+                        <div class="receipt-row">
+                            <span style="color: #64748B;">Status:</span>
+                            <b style="color: #10B981;">SUCCESS ✅</b>
+                        </div>
+                    </div>
+
+                    <button class="btn-pay" style="margin-top: 22px;" onclick="window.location.href='index.html'">
+                        Return to Home Page
+                    </button>
+                </div>
+
+                <div class="footer">
+                    🔒 Receipt generated for <span>${paymentConfig.name}</span>
+                </div>
+            `;
+        } else if (customerName !== null) {
+            alert("Please enter a valid name (at least 2 characters).");
+        }
+    }
+
+    // Modal Functions
+    function openAdminModal() {
+        document.getElementById("adminModal").style.display = "flex";
+    }
+
+    function closeAdminModal() {
+        document.getElementById("adminModal").style.display = "none";
+    }
+
+    function handleLogin() {
+        const user = document.getElementById("adminUser").value.trim();
+        const pass = document.getElementById("adminPass").value.trim();
+        const errorMsg = document.getElementById("loginError");
+
+        if (user === "VIJAY" && pass === "2143") {
+            errorMsg.style.display = "none";
+            document.getElementById("loginView").style.display = "none";
+            document.getElementById("dashboardView").style.display = "block";
+            
+            // Sync inputs with current payment state
+            document.getElementById("inputShopName").value = paymentConfig.name;
+            document.getElementById("inputVpa").value = paymentConfig.vpa;
+            document.getElementById("inputAmount").value = paymentConfig.amount;
+            document.getElementById("inputNote").value = paymentConfig.note;
+        } else {
+            errorMsg.style.display = "block";
+        }
+    }
+
+    function updatePaymentDetails() {
+        const newName = document.getElementById("inputShopName").value.trim();
+        const newVpa = document.getElementById("inputVpa").value.trim();
+        const newAmount = document.getElementById("inputAmount").value.trim();
+        const newNote = document.getElementById("inputNote").value.trim();
+
+        if (newName) paymentConfig.name = newName;
+        if (newVpa) paymentConfig.vpa = newVpa;
+        if (newAmount && !isNaN(newAmount)) paymentConfig.amount = newAmount;
+        if (newNote) paymentConfig.note = newNote;
+        
+        paymentConfig.txnRef = "TXN" + Date.now();
+
+        renderGateway();
+        closeAdminModal();
+    }
+
+    window.onload = function() {
+        fetchUrlParameters(); // Automatically reads amount from URL link
+        renderGateway();
+    };
+</script>
+
+</body>
+</html>
