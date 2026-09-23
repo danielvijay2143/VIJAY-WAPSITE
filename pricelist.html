@@ -1,9 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIJAY ONLINE SERVICES - Government & Financial Services</title>
+
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
@@ -173,14 +175,39 @@
             outline: none;
         }
 
+        /* Back to Home Button */
+        .back-home-container {
+            text-align: center;
+            margin: 25px 0 10px;
+        }
+
+        .btn-home {
+            display: inline-block;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            color: white;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(79, 70, 229, 0.45);
+        }
+
         .footer {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 20px;
             font-size: 0.8rem;
             color: var(--text-muted);
         }
     </style>
 </head>
+
 <body>
 
     <!-- Header / Hero Banner -->
@@ -192,154 +219,301 @@
 
     <!-- Main Content -->
     <div class="main-container">
+
         <div class="services-grid" id="servicesGrid">
             <!-- Services rendered dynamically from Google Sheets -->
         </div>
 
         <!-- Custom Amount Payment Box -->
         <div class="custom-payment-box">
+
             <h3>Custom Payment Amount</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Enter a custom amount and service details to pay dynamic amounts.</p>
-            
+
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
+                Enter a custom amount and service details to pay dynamic amounts.
+            </p>
+
             <div class="form-group">
                 <label>Service Description</label>
-                <input type="text" id="customService" placeholder="e.g. e-Sevai Service Bill">
+                <input 
+                    type="text" 
+                    id="customService" 
+                    placeholder="e.g. e-Sevai Service Bill"
+                >
             </div>
-            
+
             <div class="form-group">
                 <label>Amount (₹)</label>
-                <input type="number" id="customAmount" placeholder="e.g. 75.00" step="0.01">
+                <input 
+                    type="number" 
+                    id="customAmount" 
+                    placeholder="e.g. 75.00" 
+                    step="0.01"
+                >
             </div>
 
-            <button class="btn-pay" style="margin-top: 10px;" onclick="payCustomAmount()">Proceed to Pay</button>
+            <button 
+                class="btn-pay" 
+                style="margin-top: 10px;" 
+                onclick="payCustomAmount()"
+            >
+                Proceed to Pay
+            </button>
+
         </div>
 
+        <!-- Back to Home Button -->
+        <div class="back-home-container">
+            <a href="index.html" class="btn-home">
+                🏠 Back to Home
+            </a>
+        </div>
+
+        <!-- Footer -->
         <div class="footer">
             © Melvin Sai Infotech. All Rights Reserved. • Instant NPCI UPI Payment Gateway
         </div>
+
     </div>
 
     <script>
+
         const sheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTJIIoaOf1Dzbrenip2CUhUFTyBc6rp2mjcMXHqMtZa2QiuLMD7rXjoFc4Xx2cmzb3V8YaalnjWcD3u/pub?output=csv";
 
         // Parse CSV text accounting for quotes and commas
         function parseCSVLine(line) {
+
             const result = [];
             let current = '';
             let inQuotes = false;
-            
+
             for (let i = 0; i < line.length; i++) {
+
                 const char = line[i];
+
                 if (char === '"' || char === "'") {
                     inQuotes = !inQuotes;
-                } else if (char === ',' && !inQuotes) {
+                }
+
+                else if (char === ',' && !inQuotes) {
                     result.push(current.trim());
                     current = '';
-                } else {
+                }
+
+                else {
                     current += char;
                 }
             }
+
             result.push(current.trim());
+
             return result;
         }
 
-        // Fetch service details (Col A starting A2) and price (Col O starting O2)
+
+        // Fetch service details from Google Sheet
         async function fetchServicesFromSheet() {
+
             try {
+
                 const response = await fetch(sheetCsvUrl);
+
                 const csvData = await response.text();
-                const lines = csvData.split(/\r?\n/).filter(line => line.trim() !== '');
-                
+
+                const lines = csvData
+                    .split(/\r?\n/)
+                    .filter(line => line.trim() !== '');
+
                 const services = [];
-                // Start from row index 1 (row 2: A2, O2)
+
+                // Start from row index 1 (row 2)
                 for (let i = 1; i < lines.length; i++) {
+
                     const columns = parseCSVLine(lines[i]);
-                    const name = columns[0] ? columns[0].replace(/^["']|["']$/g, '').trim() : '';
-                    const priceRaw = columns[14] ? columns[14].replace(/[^0-9.]/g, '').trim() : '0'; // Column O is Index 14
-                    
+
+                    const name = columns[0]
+                        ? columns[0]
+                            .replace(/^["']|["']$/g, '')
+                            .trim()
+                        : '';
+
+                    // Column O = Index 14
+                    const priceRaw = columns[14]
+                        ? columns[14]
+                            .replace(/[^0-9.]/g, '')
+                            .trim()
+                        : '0';
+
                     if (name) {
+
                         services.push({
                             icon: "📄",
                             name: name,
                             desc: `${name} Service`,
-                            price: priceRaw ? parseFloat(priceRaw).toFixed(2) : "0.00"
+                            price: priceRaw
+                                ? parseFloat(priceRaw).toFixed(2)
+                                : "0.00"
                         });
+
                     }
                 }
-                
+
                 if (services.length > 0) {
-                    localStorage.setItem("msi_services", JSON.stringify(services));
+                    localStorage.setItem(
+                        "msi_services",
+                        JSON.stringify(services)
+                    );
                 }
-            } catch (error) {
-                console.error("Error fetching Google Sheet data:", error);
+
             }
-            
+
+            catch (error) {
+
+                console.error(
+                    "Error fetching Google Sheet data:",
+                    error
+                );
+
+            }
+
             renderServices();
         }
 
+
         function getServices() {
+
             const saved = localStorage.getItem("msi_services");
+
             if (saved) {
                 return JSON.parse(saved);
             }
+
             return [];
         }
 
-        // Render Cards to Homepage Grid
+
+        // Render Cards
         function renderServices() {
+
             const services = getServices();
+
             const grid = document.getElementById("servicesGrid");
+
             grid.innerHTML = "";
 
             if (services.length === 0) {
-                grid.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: var(--text-muted);'>Loading services...</p>";
+
+                grid.innerHTML =
+                    "<p style='grid-column:1/-1;text-align:center;color:var(--text-muted);'>Loading services...</p>";
+
                 return;
             }
 
+
             services.forEach(service => {
+
                 const card = document.createElement("div");
+
                 card.className = "card";
-                const displayPrice = parseFloat(service.price || 0).toFixed(2);
-                const payPrice = Math.round(parseFloat(service.price || 0));
+
+                const displayPrice =
+                    parseFloat(service.price || 0).toFixed(2);
+
+                const payPrice =
+                    Math.round(parseFloat(service.price || 0));
+
 
                 card.innerHTML = `
+
                     <div>
-                        <div class="card-icon">${service.icon}</div>
-                        <h3>${service.name}</h3>
-                        <p>${service.desc}</p>
+
+                        <div class="card-icon">
+                            ${service.icon}
+                        </div>
+
+                        <h3>
+                            ${service.name}
+                        </h3>
+
+                        <p>
+                            ${service.desc}
+                        </p>
+
                     </div>
+
                     <div>
-                        <div class="price-tag">₹${displayPrice}</div>
-                        <button class="btn-pay" onclick="payForService('${service.name}', '${displayPrice}')">Pay ₹${payPrice} Now</button>
+
+                        <div class="price-tag">
+                            ₹${displayPrice}
+                        </div>
+
+                        <button 
+                            class="btn-pay"
+                            onclick="payForService('${service.name}', '${displayPrice}')"
+                        >
+                            Pay ₹${payPrice} Now
+                        </button>
+
                     </div>
                 `;
+
                 grid.appendChild(card);
+
             });
         }
 
+
         // Route click to payment page
         function payForService(serviceName, price) {
+
             const orderId = "MSI" + Date.now();
-            const targetUrl = `payment.html?amount=${encodeURIComponent(price)}&service=${encodeURIComponent(serviceName)}&orderId=${encodeURIComponent(orderId)}`;
+
+            const targetUrl =
+                `payment.html?amount=${encodeURIComponent(price)}&service=${encodeURIComponent(serviceName)}&orderId=${encodeURIComponent(orderId)}`;
+
             window.location.href = targetUrl;
         }
 
+
         // Custom Payment Handler
         function payCustomAmount() {
-            const serviceName = document.getElementById("customService").value.trim() || "General Payment";
-            const price = document.getElementById("customAmount").value.trim();
 
-            if (!price || isNaN(price) || parseFloat(price) <= 0) {
-                alert("Please enter a valid payment amount!");
+            const serviceName =
+                document.getElementById("customService")
+                    .value.trim() ||
+                "General Payment";
+
+            const price =
+                document.getElementById("customAmount")
+                    .value.trim();
+
+
+            if (
+                !price ||
+                isNaN(price) ||
+                parseFloat(price) <= 0
+            ) {
+
+                alert(
+                    "Please enter a valid payment amount!"
+                );
+
                 return;
             }
 
-            payForService(serviceName, price);
+
+            payForService(
+                serviceName,
+                price
+            );
         }
 
-        // Fetch data automatically from Google Sheet on load
+
+        // Fetch data automatically from Google Sheet
         fetchServicesFromSheet();
+
     </script>
 
 </body>
 </html>
+```
