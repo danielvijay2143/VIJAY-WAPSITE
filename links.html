@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIJAY ONLINE SERVICES | விஜய் ஆன்லைன் சர்வீசஸ்</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Arima / Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Arima:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- PapaParse for Google Sheets CSV Parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0F2A4A',
+                            900: '#0A1A30',
+                        },
+                        brand: {
+                            blue: '#1E40AF',
+                            gold: '#F59E0B',
+                            lightGold: '#FEF3C7',
+                            green: '#10B981',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Arima', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', 'Arima', sans-serif;
+            background-color: #F8FAFC;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0A1A30 0%, #1E40AF 60%, #1E3A8A 100%);
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+
+        /* Continuous Up/Down Floating Animation on Mouse Hover */
+        @keyframes gentleFloat {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .interactive-card {
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .interactive-card:hover {
+            animation: gentleFloat 1.8s ease-in-out infinite;
+            background-color: #F0F7FF !important; /* Soft light color tint on hover */
+            border-color: #93C5FD !important;
+            box-shadow: 0 12px 24px -6px rgba(30, 64, 175, 0.15) !important;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Top Announcement & Contact Bar -->
+    <div class="bg-navy-900 text-white text-xs md:text-sm py-2 px-4 shadow-inner border-b border-navy-800">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-4 text-amber-300 font-medium">
+                <span><i class="fa-solid fa-clock text-amber-400 mr-1.5"></i>காலை 8:30 - இரவு 8:30 (அனைத்து நாட்களும்)</span>
+                <span class="hidden md:inline text-slate-500">|</span>
+                <span class="hidden md:inline text-slate-200"><i class="fa-solid fa-location-dot text-red-400 mr-1.5"></i>ஞாயிறு கிராமம், சென்னை-600067</span>
+            </div>
+            
+                </a>
+                
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur shadow-md border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Shop Brand & Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 gold-gradient text-slate-950 rounded-2xl flex items-center justify-center font-black text-2xl shadow-lg group-hover:scale-105 transition transform">
+                        V
+                    </div>
+                    <div>
+                        <div class="font-extrabold text-xl md:text-2xl text-navy-900 tracking-tight leading-none">
+                            VIJAY <span class="text-brand-blue">ONLINE SERVICES</span>
+                        </div>
+                        <div class="text-xs font-bold text-amber-600 mt-1">
+                            விஜய் ஆன்லைன் சர்வீசஸ்
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center space-x-6 font-semibold text-slate-700 text-sm">
+                    <a href="#home" class="hover:text-brand-blue transition">முகப்பு</a>
+                    <a href="#services" class="hover:text-brand-blue transition">சேவைகள்</a>
+                    <a href="#stats" class="hover:text-brand-blue transition">எங்கள் சாதனை</a>
+                    <a href="pricelist.html" class="hover:text-brand-blue transition text-amber-600 font-bold">💰 விலை பட்டியல்</a>
+                    <a href="#sheets-data" class="hover:text-brand-blue transition text-brand-blue">ஆவண பட்டியல் (Live)</a>
+                    <a href="links.html" class="hover:text-brand-blue transition text-amber-600 font-bold">💰 டைரக்ட் லிங்க்ஸ்(LIVE)</a>
+                    <a href="#whyus" class="hover:text-brand-blue transition">ஏன் நாங்கள்?</a>
+                    <a href="#contact" class="hover:text-brand-blue transition">முகவரி</a>
+                </div>
+
+                
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" class="p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none" aria-label="Toggle Navigation Menu">
+                        <i class="fa-solid fa-bars text-2xl" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3 shadow-xl">
+            <a href="#home" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">முகப்பு</a>
+            <a href="#services" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">சேவைகள்</a>
+            <a href="#stats" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">எங்கள் சாதனை</a>
+            <a href="pricelist.html" class="mobile-nav-link block px-3 py-2 rounded-lg font-bold text-amber-600 hover:bg-blue-50">💰 விலை பட்டியல்</a>
+            <a href="#sheets-data" class="mobile-nav-link block px-3 py-2 rounded-lg font-bold text-brand-blue hover:bg-blue-50">ஆவண பட்டியல் (Live Data)</a>
+            <a href="links.html" class="mobile-nav-link block px-3 py-2 rounded-lg font-bold text-brand-blue hover:bg-blue-50">💰 டைரக்ட் லிங்க்ஸ்(LIVE)</a>
+            <a href="#whyus" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">ஏன் நாங்கள்?</a>
+            <a href="#contact" class="mobile-nav-link block px-3 py-2 rounded-lg font-medium text-slate-800 hover:bg-blue-50">முகவரி</a>
+            <div class="pt-2 flex flex-col gap-2">
+             
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient text-white py-12 lg:py-20 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs sm:text-sm font-semibold">
+                        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                        <span>உங்கள் நம்பிக்கைக்குரிய ஆன்லைன் சேவை மையம்</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-tight">
+                        அனைத்து அரசு & ஆன்லைன் சேவைகளும் <span class="text-amber-400">ஒரே இடத்தில்!</span>
+                    </h1>
+
+                    <p class="text-slate-200 text-base sm:text-lg leading-relaxed max-w-2xl">
+                        ஆதார், பான் கார்டு, ஸ்மார்ட் ரேஷன் கார்டு, சான்றிதழ்கள், ஓட்டுநர் உரிமம் மற்றும் ரீசார்ஜ் சேவைகளை பெற எங்களை அழைக்கவும்.
+                    </p>
+
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-2">
+                        <a href="tel:8056202411" class="gold-gradient hover:opacity-95 text-slate-950 font-extrabold px-6 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition flex items-center gap-2 text-base">
+                            <i class="fa-solid fa-phone text-lg"></i>
+                            <span>அழைக்க: 8056202411</span>
+                        </a>
+                        <a href="https://wa.me/918056202411" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold px-6 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition flex items-center gap-2 text-base">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i>
+                            <span>WhatsApp மெசேஜ்</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="glass-card text-slate-900 p-6 sm:p-8 rounded-3xl shadow-2xl border border-white/20">
+                        <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-200">
+                            
+                        <marquee behavior="scroll" direction="left" scrollamount="8">
+                        <b></b> அனைவருக்கும் வணக்கம் 🙏 | <b></b> WELCOME TO OUR WEBSITE 🎉
+                        </marquee>
+                         </h1>
+                            </div>
+
+                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 1ST POSITION: Standard Services Overview -->
+ <!-- SERVICES SECTION -->
+<section id="services" class="py-14 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Section Header -->
+        <div class="text-center mb-10">
+            
+
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-3">
+                எங்களின் அனைத்து சேவைகள்
+            </h2>
+
+                    </div>
+
+
+        <!-- Services Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-5">
+
+
+            <!-- Aadhaar -->
+            <div class="interactive-card group bg-gradient-to-br from-blue-500 to-indigo-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    🪪
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    ஆதார் திருத்தங்கள்
+                </h3>
+            </div>
+
+
+            <!-- PAN -->
+            <div class="interactive-card group bg-gradient-to-br from-emerald-500 to-teal-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    💳
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    பான் கார்டு
+                </h3>
+            </div>
+
+
+            <!-- Ration -->
+            <div class="interactive-card group bg-gradient-to-br from-orange-500 to-red-500
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    🛒
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    ரேஷன் அட்டை
+                </h3>
+            </div>
+
+
+            <!-- Voter -->
+            <div class="interactive-card group bg-gradient-to-br from-purple-500 to-pink-500
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    🗳️
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    வாக்காளர் அட்டை
+                </h3>
+            </div>
+
+
+            <!-- Driving Licence -->
+            <div class="interactive-card group bg-gradient-to-br from-cyan-500 to-blue-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    🚗
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    ஓட்டுநர் உரிமம்
+                </h3>
+            </div>
+
+
+            <!-- Passport -->
+            <div class="interactive-card group bg-gradient-to-br from-violet-500 to-purple-700
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    🌍
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    பாஸ்போர்ட்
+                </h3>
+            </div>
+
+
+            <!-- e-Sevai -->
+            <div class="interactive-card group bg-gradient-to-br from-pink-500 to-rose-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    📄
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    சான்றிதழ்கள் (e-Sevai)
+                </h3>
+            </div>
+
+
+            <!-- Police Verification -->
+            <div class="interactive-card group bg-gradient-to-br from-slate-600 to-slate-800
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    👮
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    போலீஸ் வெரிஃபிகேஷன்
+                </h3>
+            </div>
+
+
+            <!-- Vehicle Insurance -->
+            <div class="interactive-card group bg-gradient-to-br from-green-500 to-lime-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    🛡️
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    வாகன காப்பீடு
+                </h3>
+            </div>
+
+
+            <!-- Electricity -->
+            <div class="interactive-card group bg-gradient-to-br from-yellow-400 to-orange-500
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    ⚡
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    மின் இணைப்பு
+                </h3>
+            </div>
+
+
+            <!-- GST -->
+            <div class="interactive-card group bg-gradient-to-br from-indigo-500 to-blue-700
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    📊
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    GST பைலிங்
+                </h3>
+            </div>
+
+
+            <!-- TDS -->
+            <div class="interactive-card group bg-gradient-to-br from-red-500 to-orange-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    💰
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    TDS பைலிங்
+                </h3>
+            </div>
+
+
+            <!-- PF -->
+            <div class="interactive-card group bg-gradient-to-br from-teal-500 to-cyan-700
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    🏦
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    பிஎப் சேவை
+                </h3>
+            </div>
+
+
+                    <!-- Patta Chitta -->
+            <div class="interactive-card group bg-gradient-to-br from-amber-500 to-yellow-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    🏡
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    பட்டா சிட்டா FMB
+                </h3>
+            </div>
+
+
+            <!-- EC -->
+            <div class="interactive-card group bg-gradient-to-br from-fuchsia-500 to-purple-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    📑
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    EC / QR EC
+                </h3>
+            </div>
+
+
+            <!-- Insurance -->
+            <div class="interactive-card group bg-gradient-to-br from-lime-500 to-green-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    🛡️
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    காப்பீட்டு திட்டம்
+                </h3>
+            </div>
+
+
+            <!-- Bus Ticket -->
+            <div class="interactive-card group bg-gradient-to-br from-sky-500 to-cyan-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    🚌
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    பஸ் டிக்கெட்
+                </h3>
+            </div>
+
+
+            <!-- Train Ticket -->
+            <div class="interactive-card group bg-gradient-to-br from-orange-500 to-red-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    🚆
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    ரயில் டிக்கெட்
+                </h3>
+            </div>
+
+
+            <!-- Flight Ticket -->
+            <div class="interactive-card group bg-gradient-to-br from-blue-600 to-cyan-500
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    ✈️
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    விமான டிக்கெட்
+                </h3>
+            </div>
+
+
+            <!-- Patta Chitta -->
+            <div class="interactive-card group bg-gradient-to-br from-amber-500 to-yellow-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    🏡
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    MSME/Udyog ஆதார்
+                </h3>
+            </div>
+
+            <!-- Police Verification -->
+            <div class="interactive-card group bg-gradient-to-br from-slate-600 to-slate-800
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    👮
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    மொபைல் டிஸ் ரீசார்ஜ் 
+                </h3>
+            </div>
+
+
+            <!-- Passport Photo -->
+            <div class="interactive-card group bg-gradient-to-br from-purple-600 to-pink-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    📸
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    பாஸ்போர்ட் சைஸ் போட்டோ
+                </h3>
+            </div>
+
+            <!-- e-Sevai -->
+            <div class="interactive-card group bg-gradient-to-br from-pink-500 to-rose-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    📄
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                   TN வேலைவாய்ப்பு 
+                </h3>
+            </div>
+
+            <!-- PAN -->
+            <div class="interactive-card group bg-gradient-to-br from-emerald-500 to-teal-600
+                        text-white p-5 rounded-2xl shadow-lg cursor-pointer
+                        transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center
+                            bg-white/20 rounded-xl text-2xl">
+                    💳
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-center leading-snug">
+                    TNPSC அரசு தேர்வுகள் 
+                </h3>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <!-- 2ND POSITION: Statistics Section -->
+    <section id="stats" class="py-12 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <span class="text-brand-blue font-bold text-xs sm:text-sm tracking-wider uppercase bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    <i class="fa-solid fa-award mr-1 text-amber-500"></i> எங்கள் சாதனைப் பயணம்
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900 mt-2">2020 முதல் வெற்றிப் பயணம்</h2>
+                <p class="text-slate-600 mt-1 text-sm">தொடங்கி தற்போது வரை வெற்றிகரமாக வழங்கப்பட்ட சேவைகள்</p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-blue-100 text-brand-blue flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-certificate"></i>
+                    </div>
+                    <div class="text-2xl font-black text-navy-900">228+ நபர்கள்</div>
+                    <div class="text-xs font-bold text-slate-600 mt-1">இ-சேவை செர்டிபிகேட்ஸ்</div>
+                </div>
+
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+                    <div class="text-2xl font-black text-navy-900">130+ நபர்கள்</div>
+                    <div class="text-xs font-bold text-slate-600 mt-1">ரேசன் அட்டை சேவைகள்</div>
+                </div>
+
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-address-card"></i>
+                    </div>
+                    <div class="text-2xl font-black text-navy-900">94+ நபர்கள்</div>
+                    <div class="text-xs font-bold text-slate-600 mt-1">ஆதார் அட்டை சேவைகள்</div>
+                </div>
+
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-check-to-slot"></i>
+                    </div>
+                    <div class="text-2xl font-black text-navy-900">135+ நபர்கள்</div>
+                    <div class="text-xs font-bold text-slate-600 mt-1">வாக்காளர் அட்டை சேவைகள்</div>
+                </div>
+
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-credit-card"></i>
+                    </div>
+                    <div class="text-2xl font-black text-navy-900">120+ நபர்கள்</div>
+                    <div class="text-xs font-bold text-slate-600 mt-1">பான் கார்டு சேவை</div>
+                </div>
+
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-id-badge"></i>
+                    </div>
+                    <div class="text-2xl font-black text-navy-900">41+ நபர்கள்</div>
+                    <div class="text-xs font-bold text-slate-600 mt-1">ஓட்டுனர் உரிம சேவைகள்</div>
+                </div>
+
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <div class="text-2xl font-black text-navy-900">85+ நபர்கள்</div>
+                    <div class="text-xs font-bold text-slate-600 mt-1">போலீஸ் வெரிஃபிகேஷன்</div>
+                </div>
+
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-yellow-100 text-yellow-600 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div class="text-2xl font-black text-navy-900">12+ நபர்கள்</div>
+                    <div class="text-xs font-bold text-slate-600 mt-1">மின் நுகர்வோர் சேவைகள்</div>
+                </div>
+
+                <div class="interactive-card bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center cursor-pointer col-span-2 sm:col-span-1">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-passport"></i>
+                    </div>
+                    <div class="text-2xl font-black text-navy-900">10+ நபர்கள்</div>
+                    <div class="text-xs font-bold text-slate-600 mt-1">பாஸ்போர்ட் சேவைகள்</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3RD POSITION: LIVE GOOGLE SHEET DATA SECTION -->
+    <section id="sheets-data" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 mt-3">சேவைகள் & தேவையான ஆவணங்கள்</h2>
+        </div>
+
+        <div id="sheetGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic Google Sheet Cards populated silently via JS -->
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="whyus" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <h2 class="text-3xl font-extrabold text-navy-900">ஏன் எங்கள் சேவையை தேர்ந்தெடுக்க வேண்டும்?</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="interactive-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer">
+                <i class="fa-solid fa-bolt text-3xl text-amber-500 mb-3"></i>
+                <h3 class="font-bold text-lg text-slate-900 mb-1">வேகமான சேவை</h3>
+                <p class="text-xs text-slate-600">குறைந்த நேரத்தில் துல்லியமான ஆன்லைன் விண்ணப்பங்கள்.</p>
+            </div>
+            <div class="interactive-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer">
+                <i class="fa-solid fa-shield-halved text-3xl text-brand-blue mb-3"></i>
+                <h3 class="font-bold text-lg text-slate-900 mb-1">நம்பகத்தன்மை</h3>
+                <p class="text-xs text-slate-600">உங்களின் ஆவணங்கள் மற்றும் தகவல்கள் பாதுகாப்பானது.</p>
+            </div>
+            <div class="interactive-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer">
+                <i class="fa-solid fa-headset text-3xl text-emerald-600 mb-3"></i>
+                <h3 class="font-bold text-lg text-slate-900 mb-1">நேரடி உதவி</h3>
+                <p class="text-xs text-slate-600">தமிழில் எளிமையான மற்றும் சரியான வழிகாட்டுதல்.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Address & Location -->
+    <section id="contact" class="bg-navy-900 text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center space-y-6">
+            <h2 class="text-3xl font-extrabold text-amber-400">VIJAY ONLINE SERVICES</h2>
+            <p class="text-lg text-slate-200">காமராஜர் தெரு, ஞாயிறு கிராமம், சென்னை - 600067</p>
+                </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-6 text-center text-xs">
+        © 2026 VIJAY ONLINE SERVICES
+    </footer>
+
+    <!-- Fixed Floating Mobile Actions -->
+    <div class="fixed bottom-3 left-3 right-3 z-50 md:hidden flex gap-2">
+        <a href="tel:8056202411" class="flex-1 bg-brand-blue text-white font-bold py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 text-xs">
+            <i class="fa-solid fa-phone"></i> Call 8056202411
+        </a>
+        <a href="https://wa.me/918056202411" target="_blank" class="flex-1 bg-emerald-500 text-slate-950 font-bold py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 text-xs">
+            <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
+        </a>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Fetch Google Sheet CSV Link provided by User
+        const googleSheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTJIIoaOf1Dzbrenip2CUhUFTyBc6rp2mjcMXHqMtZa2QiuLMD7rXjoFc4Xx2cmzb3V8YaalnjWcD3u/pub?output=csv';
+
+        function loadGoogleSheetData() {
+            Papa.parse(googleSheetCsvUrl, {
+                download: true,
+                header: false,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    const rows = results.data;
+                    const grid = document.getElementById('sheetGrid');
+
+                    if (!rows || rows.length <= 1) return;
+
+                    grid.innerHTML = '';
+
+                    for (let i = 1; i < rows.length; i++) {
+                        const row = rows[i];
+                        const serviceName = row[0] ? row[0].trim() : `சேவை ${i}`;
+                        
+                        let reqDocsList = [];
+                        for (let j = 1; j < row.length; j++) {
+                            if (row[j] && row[j].trim() !== '') {
+                                reqDocsList.push(row[j].trim());
+                            }
+                        }
+
+                        let docsHtml = '';
+                        if (reqDocsList.length > 0) {
+                            docsHtml = '<ol class="list-decimal list-inside space-y-1 text-sm font-semibold text-slate-800 leading-relaxed">';
+                            reqDocsList.forEach(doc => {
+                                docsHtml += `<li>${doc}</li>`;
+                            });
+                            docsHtml += '</ol>';
+                        } else {
+                            docsHtml = '<p class="text-sm font-semibold text-slate-800">விவரங்களுக்கு கடைக்கு தொடர்பு கொள்ளவும்</p>';
+                        }
+
+                        const card = document.createElement('div');
+                        card.className = "interactive-card bg-white p-6 rounded-2xl border border-slate-200 shadow-md hover:shadow-lg transition flex flex-col justify-between cursor-pointer";
+                        card.innerHTML = `
+                            <div>
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="w-8 h-8 rounded-lg bg-blue-100 text-brand-blue flex items-center justify-center font-bold text-sm">
+                                        <i class="fa-solid fa-file-check"></i>
+                                    </span>
+                                    <h3 class="font-extrabold text-lg text-slate-900">${serviceName}</h3>
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100 mt-2">
+                                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">தேவையான ஆவணங்கள்:</p>
+                                    ${docsHtml}
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                                <a href="https://wa.me/918056202411?text=${encodeURIComponent('வணக்கம், ' + serviceName + ' சேவை பற்றி கேட்க விரும்புகிறேன்.')}" target="_blank" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+                                    <i class="fa-brands fa-whatsapp text-sm"></i> தகவல் கேட்க
+                                </a>
+                                <a href="tel:8056202411" class="text-xs font-bold text-brand-blue hover:text-blue-800 flex items-center gap-1">
+                                    <i class="fa-solid fa-phone"></i> 8056202411
+                                </a>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    }
+                },
+                error: function(err) {
+                    console.log('Sheet parse completed silently');
+                }
+            });
+        }
+
+        // Initialize Sheet Loader on page load
+        window.addEventListener('DOMContentLoaded', loadGoogleSheetData);
+    </script>
+</body>
+</html>
