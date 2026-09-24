@@ -81,6 +81,56 @@
             border-color: #93C5FD !important;
             box-shadow: 0 12px 24px -6px rgba(30, 64, 175, 0.15) !important;
         }
+
+        /* Separate Open Now box inside marquee */
+        .marquee-box {
+            position: relative;
+            padding: 8px 10px 34px;
+            border-radius: 12px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            overflow: hidden;
+        }
+
+        .open-now-box {
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 2px 8px;
+            border: 1px solid #22c55e;
+            border-radius: 15px;
+            background: #ffffff;
+            color: #15803d;
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #00c853;
+            display: inline-block;
+            animation: statusGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes statusGlow {
+            0%, 100% {
+                box-shadow: 0 0 2px #00c853;
+                opacity: 0.7;
+            }
+            50% {
+                box-shadow: 0 0 5px #00c853, 0 0 8px #00c853;
+                opacity: 1;
+            }
+        }
+
     </style>
 </head>
 <body class="text-slate-800 antialiased flex flex-col min-h-screen">
@@ -192,9 +242,16 @@
                     <div class="glass-card text-slate-900 p-6 sm:p-8 rounded-3xl shadow-2xl border border-white/20">
                         <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-200">
                             
-                        <marquee behavior="scroll" direction="left" scrollamount="8">
-                        <b></b> அனைவருக்கும் வணக்கம் 🙏 | <b></b> WELCOME TO OUR WEBSITE 🎉
-                        </marquee>
+                        <div class="marquee-box">
+                            <marquee behavior="scroll" direction="left" scrollamount="6">
+                                அனைவருக்கும் வணக்கம் 🙏 | WELCOME TO OUR WEBSITE 🎉
+                            </marquee>
+
+                            <div class="open-now-box">
+                                <span class="status-dot"></span>
+                                <span>OPEN NOW</span>
+                            </div>
+                        </div>
                          </h1>
                             </div>
 
