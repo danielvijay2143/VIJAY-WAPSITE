@@ -34,12 +34,13 @@
             position: relative;
         }
 
+        /* Desktop Container Constrained to 390px to avoid zoomed look */
         .container {
             background: var(--card-bg);
-            border-radius: 28px;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15), 0 0 25px rgba(79, 70, 229, 0.08);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.12), 0 0 20px rgba(79, 70, 229, 0.06);
             width: 100%;
-            max-width: 460px;
+            max-width: 390px;
             overflow: hidden;
             text-align: center;
             animation: fadeIn 0.4s ease-out;
@@ -48,72 +49,72 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            from { opacity: 0; transform: translateY(15px) scale(0.98); }
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .header {
             background: var(--header-gradient);
             color: white;
-            padding: 38px 20px 28px;
+            padding: 28px 20px 20px;
             position: relative;
-            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.25);
         }
 
         .header h2 {
-            font-size: 1.6rem;
+            font-size: 1.35rem;
             font-weight: 800;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             word-wrap: break-word;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: -0.3px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
 
         .header p {
-            font-size: 0.88rem;
+            font-size: 0.82rem;
             opacity: 0.95;
             font-weight: 500;
         }
 
         .badge {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            margin-top: 12px;
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.7rem;
+            margin-top: 10px;
             text-transform: uppercase;
-            letter-spacing: 1.2px;
+            letter-spacing: 1px;
             font-weight: 700;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
         .content {
-            padding: 28px 24px;
+            padding: 22px 20px;
         }
 
         .amount-box {
             background: linear-gradient(135deg, #F8FAFC 0%, #EEF2FF 100%);
             border: 1px solid #E2E8F0;
-            border-radius: 18px;
-            padding: 18px;
-            margin-bottom: 22px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02), 0 4px 12px rgba(79, 70, 229, 0.08);
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 18px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.01), 0 3px 8px rgba(79, 70, 229, 0.05);
         }
 
         .amount-box label {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #64748B;
             text-transform: uppercase;
             letter-spacing: 0.8px;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             font-weight: 700;
         }
 
         .amount-box .value {
-            font-size: 2.4rem;
+            font-size: 1.95rem;
             font-weight: 900;
             background: linear-gradient(135deg, #4F46E5, #7C3AED, #EC4899);
             -webkit-background-clip: text;
@@ -121,34 +122,34 @@
         }
 
         .service-note-text {
-            font-size: 0.88rem;
+            font-size: 0.82rem;
             color: #475569;
-            margin-top: 6px;
+            margin-top: 4px;
             font-weight: 600;
         }
 
         .qr-wrapper {
             background: #ffffff;
             border: 1px solid #E2E8F0;
-            border-radius: 24px;
-            padding: 20px;
+            border-radius: 20px;
+            padding: 14px;
             display: inline-block;
-            margin-bottom: 22px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            margin-bottom: 18px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
             transition: transform 0.3s ease;
             max-width: 100%;
         }
 
         .qr-wrapper:hover {
-            transform: scale(1.02);
+            transform: scale(1.015);
         }
 
-        /* Scannable Frame Container with Lime Green Corner Brackets */
+        /* Frame with Corner Brackets */
         .qr-frame {
             position: relative;
-            padding: 18px;
+            padding: 12px;
             background: #FFFFFF;
-            border-radius: 20px;
+            border-radius: 16px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -160,11 +161,11 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 28px;
-            height: 28px;
-            border-top: 5px solid #A3E635;
-            border-left: 5px solid #A3E635;
-            border-top-left-radius: 12px;
+            width: 22px;
+            height: 22px;
+            border-top: 4px solid #A3E635;
+            border-left: 4px solid #A3E635;
+            border-top-left-radius: 10px;
         }
 
         /* Bottom-Right Bracket */
@@ -173,11 +174,11 @@
             position: absolute;
             bottom: 0;
             right: 0;
-            width: 28px;
-            height: 28px;
-            border-bottom: 5px solid #A3E635;
-            border-right: 5px solid #A3E635;
-            border-bottom-right-radius: 12px;
+            width: 22px;
+            height: 22px;
+            border-bottom: 4px solid #A3E635;
+            border-right: 4px solid #A3E635;
+            border-bottom-right-radius: 10px;
         }
 
         /* Top-Right Bracket */
@@ -185,11 +186,11 @@
             position: absolute;
             top: 0;
             right: 0;
-            width: 28px;
-            height: 28px;
-            border-top: 5px solid #A3E635;
-            border-right: 5px solid #A3E635;
-            border-top-right-radius: 12px;
+            width: 22px;
+            height: 22px;
+            border-top: 4px solid #A3E635;
+            border-right: 4px solid #A3E635;
+            border-top-right-radius: 10px;
         }
 
         /* Bottom-Left Bracket */
@@ -197,11 +198,11 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 28px;
-            height: 28px;
-            border-bottom: 5px solid #A3E635;
-            border-left: 5px solid #A3E635;
-            border-bottom-left-radius: 12px;
+            width: 22px;
+            height: 22px;
+            border-bottom: 4px solid #A3E635;
+            border-left: 4px solid #A3E635;
+            border-bottom-left-radius: 10px;
         }
 
         #qrcode {
@@ -211,28 +212,28 @@
         }
 
         #qrcode img, #qrcode canvas {
-            border-radius: 8px;
-            max-width: 100%;
+            border-radius: 6px;
+            max-width: 210px !important;
             height: auto !important;
         }
 
         .upi-apps {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 22px;
+            gap: 8px;
+            margin-bottom: 18px;
             flex-wrap: wrap;
         }
 
         .upi-chip {
             background: linear-gradient(135deg, #F1F5F9, #E2E8F0);
             border: 1px solid #CBD5E1;
-            border-radius: 10px;
-            padding: 7px 12px;
-            font-size: 0.78rem;
+            border-radius: 8px;
+            padding: 6px 11px;
+            font-size: 0.74rem;
             font-weight: 700;
             color: #334155;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
             transition: all 0.2s;
         }
 
@@ -248,31 +249,31 @@
             background: linear-gradient(135deg, #10B981 0%, #059669 100%);
             color: white;
             text-decoration: none;
-            padding: 16px;
-            border-radius: 16px;
+            padding: 13px;
+            border-radius: 14px;
             font-weight: 800;
-            font-size: 1.05rem;
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            letter-spacing: 0.3px;
+            font-size: 0.98rem;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.35);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.2px;
         }
 
         .btn-pay:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 28px rgba(16, 185, 129, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(16, 185, 129, 0.5);
             background: linear-gradient(135deg, #34D399 0%, #059669 100%);
         }
 
         .confirm-section {
-            margin-top: 18px;
+            margin-top: 16px;
             border-top: 1px dashed #CBD5E1;
-            padding-top: 16px;
+            padding-top: 14px;
         }
 
         .confirm-section p {
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             color: #475569;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: 600;
         }
 
@@ -281,18 +282,18 @@
             background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
             color: white;
             border: none;
-            padding: 14px;
-            border-radius: 14px;
+            padding: 12px;
+            border-radius: 12px;
             font-weight: 800;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.35);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
             transition: all 0.2s ease;
         }
 
         .btn-confirm:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.45);
         }
 
         .btn-confirm:disabled {
@@ -303,8 +304,8 @@
         }
 
         .footer {
-            padding: 16px 20px 22px;
-            font-size: 0.78rem;
+            padding: 14px 18px 18px;
+            font-size: 0.74rem;
             color: #64748B;
             border-top: 1px solid #F1F5F9;
             background: #F8FAFC;
@@ -319,13 +320,13 @@
         .receipt-card {
             background: #FFFFFF;
             border: 1px solid #E2E8F0;
-            border-radius: 18px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 16px;
             text-align: left;
-            font-size: 0.88rem;
-            line-height: 2;
-            margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            font-size: 0.84rem;
+            line-height: 1.9;
+            margin-top: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
         }
 
         .receipt-row {
@@ -338,10 +339,10 @@
             border-bottom: none;
         }
 
-        /* MOBILE SPECIFIC ALIGNMENTS & RESPONSIVENESS */
+        /* MOBILE SPECIFIC ALIGNMENTS */
         @media (max-width: 480px) {
             body {
-                padding: 10px;
+                padding: 12px;
             }
 
             .container {
@@ -349,66 +350,65 @@
             }
 
             .header {
-                padding: 28px 16px 20px;
+                padding: 24px 16px 18px;
             }
 
             .header h2 {
-                font-size: 1.35rem;
+                font-size: 1.25rem;
             }
 
             .content {
-                padding: 20px 16px;
+                padding: 18px 14px;
             }
 
             .amount-box {
-                padding: 14px;
-                margin-bottom: 16px;
+                padding: 12px;
+                margin-bottom: 14px;
             }
 
             .amount-box .value {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
             .qr-wrapper {
-                padding: 12px;
-                margin-bottom: 16px;
+                padding: 10px;
+                margin-bottom: 14px;
             }
 
             .qr-frame {
-                padding: 12px;
+                padding: 10px;
             }
 
-            /* Scales QR Code on smaller screens so it never cuts off */
             #qrcode img, #qrcode canvas {
-                max-width: 200px !important;
+                max-width: 180px !important;
                 height: auto !important;
             }
 
             .qr-frame::before, .qr-frame::after,
             .corner-tr, .corner-bl {
-                width: 20px;
-                height: 20px;
-                border-width: 4px;
+                width: 18px;
+                height: 18px;
+                border-width: 3px;
             }
 
             .upi-apps {
-                gap: 6px;
-                margin-bottom: 16px;
+                gap: 5px;
+                margin-bottom: 14px;
             }
 
             .upi-chip {
-                padding: 5px 9px;
-                font-size: 0.72rem;
+                padding: 5px 8px;
+                font-size: 0.7rem;
             }
 
             .btn-pay {
-                padding: 14px;
-                font-size: 0.98rem;
+                padding: 12px;
+                font-size: 0.92rem;
             }
 
             .btn-confirm {
-                padding: 12px;
-                font-size: 0.9rem;
+                padding: 11px;
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -419,7 +419,7 @@
     <div class="header">
         <h2 id="merchant-title">Melvin Sai Infotech</h2>
         <p>Scan with any UPI App to pay</p>
-
+        <span class="badge">0% Commission Gateway</span>
     </div>
 
     <div class="content">
@@ -498,8 +498,8 @@
 
         qrCodeInstance = new QRCode(qrContainer, {
             text: upiUri,
-            width: 250,
-            height: 250,
+            width: 210,
+            height: 210,
             colorDark: "#000000",
             colorLight: "#FFFFFF",
             correctLevel: QRCode.CorrectLevel.M
@@ -529,15 +529,15 @@
             const container = document.getElementById("gatewayContainer");
             
             container.innerHTML = `
-                <div style="background: linear-gradient(135deg, #10B981, #059669); padding: 35px 20px 25px; color: white;">
-                    <div style="font-size: 3.5rem; margin-bottom: 5px; animation: popIn 0.4s ease;">🎉</div>
-                    <h2 style="font-size: 1.8rem; font-weight: 800;">Payment Successful!</h2>
-                    <p style="font-size: 0.9rem; opacity: 0.9;">Transaction confirmed</p>
+                <div style="background: linear-gradient(135deg, #10B981, #059669); padding: 30px 18px 20px; color: white;">
+                    <div style="font-size: 3rem; margin-bottom: 4px; animation: popIn 0.4s ease;">🎉</div>
+                    <h2 style="font-size: 1.5rem; font-weight: 800;">Payment Successful!</h2>
+                    <p style="font-size: 0.85rem; opacity: 0.9;">Transaction confirmed</p>
                 </div>
                 
                 <div class="content">
-                    <p style="color: #475569; font-weight: 600; font-size: 0.95rem;">
-                        Thank you for your payment to <br><b style="color: #0F172A; font-size: 1.1rem;">${paymentConfig.name}</b>
+                    <p style="color: #475569; font-weight: 600; font-size: 0.9rem;">
+                        Thank you for your payment to <br><b style="color: #0F172A; font-size: 1.05rem;">${paymentConfig.name}</b>
                     </p>
 
                     <div class="receipt-card">
@@ -551,7 +551,7 @@
                         </div>
                         <div class="receipt-row">
                             <span style="color: #64748B;">Amount Paid:</span>
-                            <b style="color: #10B981; font-size: 1.1rem;">₹${parseFloat(paymentConfig.amount).toFixed(2)}</b>
+                            <b style="color: #10B981; font-size: 1.05rem;">₹${parseFloat(paymentConfig.amount).toFixed(2)}</b>
                         </div>
                         <div class="receipt-row">
                             <span style="color: #64748B;">Order Ref ID:</span>
@@ -563,7 +563,7 @@
                         </div>
                     </div>
 
-                    <button class="btn-pay" style="margin-top: 22px;" onclick="window.location.href='index.html'">
+                    <button class="btn-pay" style="margin-top: 18px;" onclick="window.location.href='index.html'">
                         Return to Home Page
                     </button>
                 </div>
