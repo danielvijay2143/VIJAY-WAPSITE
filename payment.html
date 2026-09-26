@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic UPI Payment Gateway & Admin Panel</title>
+    <title>Dynamic UPI Payment Gateway</title>
     <!-- QRCode.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
@@ -58,29 +58,6 @@
             padding: 38px 20px 28px;
             position: relative;
             box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
-        }
-
-        .admin-toggle-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            color: white;
-            padding: 7px 14px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            cursor: pointer;
-            backdrop-filter: blur(8px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        }
-
-        .admin-toggle-btn:hover {
-            background: rgba(255, 255, 255, 0.45);
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
         }
 
         .header h2 {
@@ -327,122 +304,6 @@
             font-weight: 700;
         }
 
-        /* ADMIN / MODAL STYLES */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal {
-            background: white;
-            width: 100%;
-            max-width: 400px;
-            border-radius: 24px;
-            padding: 28px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 30px rgba(126, 34, 206, 0.3);
-            text-align: left;
-            animation: popIn 0.3s ease-out;
-        }
-
-        @keyframes popIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 22px;
-        }
-
-        .modal-header h3 {
-            font-size: 1.3rem;
-            color: var(--text-main);
-            font-weight: 800;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.6rem;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: color 0.2s;
-        }
-
-        .close-btn:hover {
-            color: #EF4444;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid #CBD5E1;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            outline: none;
-            transition: all 0.2s;
-        }
-
-        .form-group input:focus {
-            border-color: #8B5CF6;
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
-        }
-
-        .btn-submit {
-            width: 100%;
-            background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 0.98rem;
-            cursor: pointer;
-            margin-top: 12px;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-            transition: all 0.2s;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
-        }
-
-        .error-msg {
-            color: #EF4444;
-            font-size: 0.82rem;
-            margin-top: 8px;
-            display: none;
-            text-align: center;
-            font-weight: 600;
-        }
-
         .receipt-card {
             background: #FFFFFF;
             border: 1px solid #E2E8F0;
@@ -470,7 +331,6 @@
 
 <div class="container" id="gatewayContainer">
     <div class="header">
-        <button class="admin-toggle-btn" onclick="openAdminModal()">⚙️ Admin Login</button>
         <h2 id="merchant-title">Melvin Sai Infotech</h2>
         <p>Scan with any UPI App to pay</p>
         <span class="badge">0% Commission Gateway</span>
@@ -510,52 +370,6 @@
 
     <div class="footer">
         🔒 <span>Instant Direct Transfer</span> • Secured by NPCI UPI
-    </div>
-</div>
-
-<!-- ADMIN / LOGIN MODAL -->
-<div class="modal-overlay" id="adminModal">
-    <div class="modal">
-        <div id="loginView">
-            <div class="modal-header">
-                <h3>Admin Login</h3>
-                <button class="close-btn" onclick="closeAdminModal()">&times;</button>
-            </div>
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" id="adminUser" placeholder="Enter Username">
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="adminPass" placeholder="Enter Password">
-            </div>
-            <div class="error-msg" id="loginError">Invalid Username or Password!</div>
-            <button class="btn-submit" onclick="handleLogin()">Login</button>
-        </div>
-
-        <div id="dashboardView" style="display: none;">
-            <div class="modal-header">
-                <h3>Payment Settings</h3>
-                <button class="close-btn" onclick="closeAdminModal()">&times;</button>
-            </div>
-            <div class="form-group">
-                <label>Shop / Business Name</label>
-                <input type="text" id="inputShopName" value="Melvin Sai Infotech">
-            </div>
-            <div class="form-group">
-                <label>UPI VPA ID</label>
-                <input type="text" id="inputVpa" value="yourbusiness@upi">
-            </div>
-            <div class="form-group">
-                <label>Amount (₹)</label>
-                <input type="number" id="inputAmount" value="100.00" step="0.01">
-            </div>
-            <div class="form-group">
-                <label>Service / Note</label>
-                <input type="text" id="inputNote" value="Government & Financial Services">
-            </div>
-            <button class="btn-submit" onclick="updatePaymentDetails()">Update Gateway & QR Code</button>
-        </div>
     </div>
 </div>
 
@@ -659,50 +473,6 @@
         } else if (customerName !== null) {
             alert("Please enter a valid name (at least 2 characters).");
         }
-    }
-
-    function openAdminModal() {
-        document.getElementById("adminModal").style.display = "flex";
-    }
-
-    function closeAdminModal() {
-        document.getElementById("adminModal").style.display = "none";
-    }
-
-    function handleLogin() {
-        const user = document.getElementById("adminUser").value.trim();
-        const pass = document.getElementById("adminPass").value.trim();
-        const errorMsg = document.getElementById("loginError");
-
-        if (user === "VIJAY" && pass === "2143") {
-            errorMsg.style.display = "none";
-            document.getElementById("loginView").style.display = "none";
-            document.getElementById("dashboardView").style.display = "block";
-            
-            document.getElementById("inputShopName").value = paymentConfig.name;
-            document.getElementById("inputVpa").value = paymentConfig.vpa;
-            document.getElementById("inputAmount").value = paymentConfig.amount;
-            document.getElementById("inputNote").value = paymentConfig.note;
-        } else {
-            errorMsg.style.display = "block";
-        }
-    }
-
-    function updatePaymentDetails() {
-        const newName = document.getElementById("inputShopName").value.trim();
-        const newVpa = document.getElementById("inputVpa").value.trim();
-        const newAmount = document.getElementById("inputAmount").value.trim();
-        const newNote = document.getElementById("inputNote").value.trim();
-
-        if (newName) paymentConfig.name = newName;
-        if (newVpa) paymentConfig.vpa = newVpa;
-        if (newAmount && !isNaN(newAmount)) paymentConfig.amount = newAmount;
-        if (newNote) paymentConfig.note = newNote;
-        
-        paymentConfig.txnRef = "TXN" + Date.now();
-
-        renderGateway();
-        closeAdminModal();
     }
 
     window.onload = function() {
