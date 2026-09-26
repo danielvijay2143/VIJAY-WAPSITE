@@ -39,7 +39,7 @@
             border-radius: 28px;
             box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15), 0 0 25px rgba(79, 70, 229, 0.08);
             width: 100%;
-            max-width: 440px;
+            max-width: 460px;
             overflow: hidden;
             text-align: center;
             animation: fadeIn 0.4s ease-out;
@@ -131,7 +131,7 @@
             background: #ffffff;
             border: 1px solid #E2E8F0;
             border-radius: 24px;
-            padding: 18px;
+            padding: 20px;
             display: inline-block;
             margin-bottom: 22px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
@@ -145,7 +145,7 @@
         /* Scannable Frame Container with Lime Green Corner Brackets */
         .qr-frame {
             position: relative;
-            padding: 16px;
+            padding: 18px;
             background: #FFFFFF;
             border-radius: 20px;
             display: flex;
@@ -159,11 +159,11 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 22px;
-            height: 22px;
-            border-top: 4px solid #A3E635;
-            border-left: 4px solid #A3E635;
-            border-top-left-radius: 10px;
+            width: 28px;
+            height: 28px;
+            border-top: 5px solid #A3E635;
+            border-left: 5px solid #A3E635;
+            border-top-left-radius: 12px;
         }
 
         /* Bottom-Right Bracket */
@@ -172,11 +172,11 @@
             position: absolute;
             bottom: 0;
             right: 0;
-            width: 22px;
-            height: 22px;
-            border-bottom: 4px solid #A3E635;
-            border-right: 4px solid #A3E635;
-            border-bottom-right-radius: 10px;
+            width: 28px;
+            height: 28px;
+            border-bottom: 5px solid #A3E635;
+            border-right: 5px solid #A3E635;
+            border-bottom-right-radius: 12px;
         }
 
         /* Top-Right Bracket */
@@ -184,11 +184,11 @@
             position: absolute;
             top: 0;
             right: 0;
-            width: 22px;
-            height: 22px;
-            border-top: 4px solid #A3E635;
-            border-right: 4px solid #A3E635;
-            border-top-right-radius: 10px;
+            width: 28px;
+            height: 28px;
+            border-top: 5px solid #A3E635;
+            border-right: 5px solid #A3E635;
+            border-top-right-radius: 12px;
         }
 
         /* Bottom-Left Bracket */
@@ -196,11 +196,11 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 22px;
-            height: 22px;
-            border-bottom: 4px solid #A3E635;
-            border-left: 4px solid #A3E635;
-            border-bottom-left-radius: 10px;
+            width: 28px;
+            height: 28px;
+            border-bottom: 5px solid #A3E635;
+            border-left: 5px solid #A3E635;
+            border-bottom-left-radius: 12px;
         }
 
         #qrcode {
@@ -285,9 +285,17 @@
             transition: all 0.2s ease;
         }
 
-        .btn-confirm:hover {
+        .btn-confirm:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+        }
+
+        /* Disabled state styling for the confirm button */
+        .btn-confirm:disabled {
+            background: #94A3B8;
+            cursor: not-allowed;
+            box-shadow: none;
+            opacity: 0.6;
         }
 
         .footer {
@@ -333,7 +341,7 @@
     <div class="header">
         <h2 id="merchant-title">Melvin Sai Infotech</h2>
         <p>Scan with any UPI App to pay</p>
-        <span class="badge">0% Commission Gateway</span>
+        
     </div>
 
     <div class="content">
@@ -358,11 +366,11 @@
             <div class="upi-chip">BHIM</div>
         </div>
 
-        <a id="upi-link" class="btn-pay" href="#">Open UPI App to Pay</a>
+        <a id="upi-link" class="btn-pay" href="#" onclick="markUpiAppOpened()">Open UPI App to Pay</a>
 
         <div class="confirm-section">
-            <p>Finished payment in your UPI app?</p>
-            <button class="btn-confirm" onclick="confirmPaymentProcess()">
+            <p id="confirm-status-text">Please click 'Open UPI App to Pay' above first</p>
+            <button class="btn-confirm" id="btn-confirm-pay" onclick="confirmPaymentProcess()" disabled>
                 ✅ Confirm Payment / Done
             </button>
         </div>
@@ -374,6 +382,8 @@
 </div>
 
 <script>
+    let hasOpenedUpiApp = false;
+
     let paymentConfig = {
         vpa: "danielvijay@ptyes",
         name: "Melvin Sai Infotech",
@@ -410,8 +420,8 @@
 
         qrCodeInstance = new QRCode(qrContainer, {
             text: upiUri,
-            width: 180,
-            height: 180,
+            width: 250,
+            height: 250,
             colorDark: "#000000",
             colorLight: "#FFFFFF",
             correctLevel: QRCode.CorrectLevel.M
@@ -420,7 +430,21 @@
         document.getElementById("upi-link").href = upiUri;
     }
 
+    function markUpiAppOpened() {
+        hasOpenedUpiApp = true;
+        const confirmBtn = document.getElementById("btn-confirm-pay");
+        const statusText = document.getElementById("confirm-status-text");
+
+        confirmBtn.disabled = false;
+        statusText.innerText = "Finished payment in your UPI app?";
+    }
+
     function confirmPaymentProcess() {
+        if (!hasOpenedUpiApp) {
+            alert("Please click 'Open UPI App to Pay' button first before confirming payment.");
+            return;
+        }
+
         const customerName = prompt("Please enter your name (minimum 2 characters):");
         
         if (customerName && customerName.trim().length >= 2) {
